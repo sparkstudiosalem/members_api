@@ -16,19 +16,18 @@ const { expect } = require('code');
 // eslint-disable-next-line
 const lab = exports.lab = require('lab').script();
 const url = require('url');
-
 const server = require('../../..');
-const { destroyRecords, getAuthToken, fixtures } = require('../../fixture-client');
+const { destroyRecords, getAuthToken } = require('../../fixture-client');
 const { users } = require('../../fixtures');
+const knex = require('../../../knex');
 
 lab.experiment('GET /users/', () => {
   let user;
   let Authorization;
 
   lab.before(async () => {
-    const data = await fixtures.create({ users });
-    user = data.users[0];
-    const authRes = await getAuthToken(data.users[0]);
+    await knex('users').insert(users);
+    const authRes = await getAuthToken(users[0]);
     Authorization = authRes.token;
   });
 
