@@ -4,18 +4,27 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   eslint:
+    name: Run eslint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      -
+        name: Checkout code
+        uses: actions/checkout@v3
+      -
+        name: Setup node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm ci
-      - uses: sibiraj-s/action-eslint@v2
+      -
+        name: Install dependencies
+        uses: bahmutov/npm-install@v1
+      -
+        name: Run eslint
+        uses: sibiraj-s/action-eslint@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           eslint-args: '--ignore-path=.gitignore --quiet'
