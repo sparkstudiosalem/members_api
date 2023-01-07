@@ -1,6 +1,9 @@
 {
   // enable airbnb eslint from https://www.npmjs.com/package/eslint-config-airbnb
   "extends": "airbnb",
+  "parserOptions": {
+    "ecmaVersion": 2021
+  },
   "rules": {
     "arrow-body-style": "off",
     "camelcase": "off",
