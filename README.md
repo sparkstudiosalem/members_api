@@ -62,7 +62,7 @@ If you **do** have an existing db and want to upgrade its schema to the latest s
 If you **don't** have an existing db and want to create basic sample database structure and entries:
 `npm run db_seed`
 
-Other npm tasks include db_migrate_rollback_all, db_migrate_down, db_migrate_up, and db_clear.
+Other npm tasks include db_migrate_rollback_all, db_migrate_down, and db_migrate_up.
 
 To view this container's website from the docker host machine: `http://localhost:3004`
 
@@ -73,16 +73,13 @@ To access the database directly, use your docker host's `psql` or `pgadmin` clie
 ### Debugging Docker Dev Usage
 
 You can build this container directly with: `docker build -t members_api .`
-You can run this container directly with: `docker run -it members_api /bin/sh`
+You can run this container directly with: `docker run -it members_api /bin/sh`, or by invoking the script `dockerr-bash.sh`.
 You'll then have to manually run commands like `npm install` or `npm run start` (see Dockerfile and docker-compose.yml for various assumptions and env vars we use during normal runtime.)
 
-<<<<<<< HEAD
 ### Emails/SMTP
 
 [Inbucket](https://inbucket.org) is running on http://localhost:10001 by default in dev mode so that you can receive emails without actually sending anything.
 
-=======
->>>>>>> chore-split-db
 ## Database
 
 Under Docker, a single container runs two databases; `members_api_db_development` and `members_api_db_test`.
@@ -90,8 +87,8 @@ The test database `members_api_db_test` is managed by Docker scripts, and is mig
 The development database is migrated each time it is booted up.
 Migrations and data seeds against the development database may be run manually with the `./scripts/docker-exec.sh` script.
 
-  - `docker exec members_api npm run db_migrate_up`
-  - `docker exec members_api npm run db_seed`
+  - `docker exec members_api npm run --rm db_migrate_up`
+  - `docker exec members_api npm run --rm db_seed`
 
 ## Tests
 
@@ -137,3 +134,10 @@ Delete an event:
 ## Heroku Deploy
 
 - See `app.json`
+
+## Periodic Jobs
+
+Periodic jobs are scheduled and run with [Bree](https://jobscheduler.net/).
+
+The schedule for all jobs is defined in `jobs/index.js`.
+The individual jobs are defined in `jobs/`, and are loaded by filename by the scheduler.

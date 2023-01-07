@@ -12,35 +12,39 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const health = require('./health');
-const users = require('./users');
-const auth = require('./auth');
-const certs = require('./certs');
-const cards = require('./cards');
-const stats = require('./stats');
-const events = require('./events');
-const memberships = require('./memberships');
-const instructors = require('./instructors');
-const userCerts = require('./user_certs');
-const notices = require('./notices');
-const noticeComments = require('./notice_comments');
 const allUsers = require('./all_users');
+const accessControlUnits = require('./access_control_units');
+const auth = require('./auth');
+const cards = require('./cards');
+const certs = require('./certs');
+const events = require('./events');
+const health = require('./health');
+const instructors = require('./instructors');
+const jobs = require('./jobs');
+const memberships = require('./memberships');
+const noticeComments = require('./notice_comments');
+const notices = require('./notices');
 const postalCodes = require('./postal_codes');
+const stats = require('./stats');
+const userCerts = require('./user_certs');
+const users = require('./users');
 
 // Routes - Exports a default for routes to be used in index.js
 module.exports = [].concat(
-  auth,
-  health,
-  users,
-  certs,
-  cards,
-  stats,
-  events,
-  memberships,
-  instructors,
-  userCerts,
-  notices,
-  noticeComments,
   allUsers,
+  auth,
+  accessControlUnits,
+  cards,
+  certs,
+  events,
+  health,
+  instructors,
+  jobs,
+  memberships,
+  noticeComments,
+  notices,
   postalCodes,
+  stats,
+  userCerts,
+  users,
 );

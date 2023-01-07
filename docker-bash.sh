@@ -12,4 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+docker compose up members_api -d
 docker exec -i -t members_api /bin/sh -l

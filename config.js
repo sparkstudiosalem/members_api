@@ -113,19 +113,41 @@ const cache = {
   },
 };
 
+const databaseOverrides = {
+  test: {
+    pool: {
+      min: 1,
+      max: 1,
+    },
+  },
+};
+
 module.exports = {
   env,
   siteName: process.env.SITE_NAME || 'HeatSync Labs',
   hapiServerOptions: hapiServerOptions[env],
-  databaseUrl: process.env.DATABASE_URL,
+  database: {
+    client: 'postgresql',
+    connection: process.env.DATABASE_URL,
+    pool: {
+      min: 1,
+      max: 7,
+    },
+    seeds: {
+      directory: './migrations/seed',
+    },
+    ...databaseOverrides[env]
+  },
   jwt,
   cookies,
   oauth,
   cache: cache[env],
   admin_email: process.env.ADMIN_EMAIL || 'info@heatsynclabs.org',
+  info_email: process.env.INFO_EMAIL || 'info@heatsynclabs.org',
   domain: process.env.DOMAIN_LOCATION || 'http://localhost:3005',
   domain_dev: process.env.DOMAIN_LOCATION_DEV || 'http://localhost:3005',
   server_url: process.env.SERVER_URL || `http://localhost:${port}`,
+  stripe_api_key: process.env.STRIPE_API_KEY || 'sk_test_51HBWrOIJ1Z2HBEGB0MYHuIyquCGGZyC0KTva1djYgR6NnNo28Jl13XLcvUUVRV69OiMZbkMNIPgyn60FJyzs12sY00JO6Es7sA',
   swaggerOptions: {
     info: {
       title: Pack.name,
@@ -146,6 +168,9 @@ module.exports = {
         description: 'find out more',
         url: 'https://heatsynclabs.org',
       },
+    }, {
+      name: 'jobs',
+      description: 'Endpoints for manipulating scheduled jobs',
     }],
     pathPrefixSize: 3,
   },

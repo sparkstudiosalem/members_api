@@ -25,12 +25,13 @@ tokens
   .attr('is_validated')
   .attr('is_deleted');
 
-const fixture = [
-  tokens.build({
-    id: 3137,
-    is_validated: true,
-    is_deleted: false,
-  }),
-];
-
-module.exports = fixture;
+module.exports = {
+  fixtures: [
+    tokens.build({
+      id: 3137,
+      is_validated: true,
+      is_deleted: false,
+    }),
+  ],
+  factory: tokens
+};

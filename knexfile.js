@@ -14,14 +14,4 @@
 
 const config = require('./config');
 
-module.exports = {
-  client: 'postgresql',
-  connection: config.databaseUrl,
-  pool: {
-    min: 1,
-    max: 7,
-  },
-  seeds: {
-    directory: './migrations/seed',
-  },
-};
+module.exports = config.database;

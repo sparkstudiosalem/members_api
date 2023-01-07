@@ -1,17 +1,13 @@
-const { SchemaInspector } = require('knex-schema-inspector');
 const Debug = require('debug');
-const knex = require('../knex');
+const knex = require('../../knex');
+const getTableNames = require('./getTableNames');
 
 const debug = Debug('clearDb');
-
-const inspector = SchemaInspector(knex);
 
 async function resetDb() {
   debug('Removing all db records');
 
-  const tableNames = (await inspector.tables()).filter((tableName) => {
-    return !tableName.startsWith('knex_');
-  });
+  const tableNames = await getTableNames();
 
   while (tableNames.length) {
     const tableName = tableNames.shift();

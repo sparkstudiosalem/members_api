@@ -11,10 +11,7 @@ then
   echo "Setting NODE_PORT=$PORT based on PORT"
 fi
 
-if [ $NPMINSTALL == 1 ]
-then
-  npm install
-fi
+npm install
 
 if [ $NODE_ENV == "production" ]
 then
@@ -25,7 +22,5 @@ then
   npm run develop
 elif [ $NODE_ENV == "test" ]
 then
-  npm run db_migrate_rollback_all
-  npm run db_migrate_latest
   npm run test
 fi

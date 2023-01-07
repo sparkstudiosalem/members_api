@@ -25,19 +25,20 @@ time_token
   .attr('created_at')
   .attr('used_at');
 
-const fixture = [
-  time_token.build({
-    token_type: 'RESET',
-  }),
-  time_token.build({
-    token_type: 'RESET',
-  }),
-  time_token.build({
-    token_type: 'VALIDATION',
-  }),
-  time_token.build({
-    token_type: 'VALIDATION',
-  }),
-];
-
-module.exports = fixture;
+module.exports = {
+  fixtures: [
+    time_token.build({
+      token_type: 'RESET',
+    }),
+    time_token.build({
+      token_type: 'RESET',
+    }),
+    time_token.build({
+      token_type: 'VALIDATION',
+    }),
+    time_token.build({
+      token_type: 'VALIDATION',
+    }),
+  ],
+  factory: time_token
+};

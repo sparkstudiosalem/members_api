@@ -18,7 +18,7 @@ const promise = require('bluebird');
 const debug = require('debug')('errors');
 const url = require('url');
 const { Factory } = require('rosie');
-const server = require('..');
+const server = require('../services/server');
 const { connection } = require('../knexfile');
 const knex = require('../knex');
 
@@ -69,34 +69,6 @@ function createMapRelations(relationNames) {
 
 module.exports = {
   createMapRelations,
-  destroyRecords(tables) {
-    const deleteRecords = [];
-
-    forEach(tableDeleteOrder, (tableName) => {
-      if (tables[tableName]) {
-        const key = tableToDeleteKey[tableName];
-        deleteRecords.push({ [tableName]: [] });
-        forEach(tables[tableName], (record) => {
-          deleteRecords[deleteRecords.length - 1][tableName].push(record[key]);
-        });
-      }
-    });
-
-    return promise.each(deleteRecords, (table) => {
-      const tableName = keys(table)[0];
-      const ids = values(table)[0];
-      const key = tableToDeleteKey[tableName];
-
-      return knex(tableName)
-        .whereIn(key, ids)
-        .del()
-        .then(() => tableName)
-        .catch((err) => {
-          debug('Fixtures delete err => ', err);
-          return Promise.reject(err);
-        });
-    });
-  },
   async makeUserIdAdmin(userId) {
     await knex('groups')
       .insert({ id: 'ADMIN', description: 'Admin users' })

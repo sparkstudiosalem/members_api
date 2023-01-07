@@ -12,21 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { expect } = require('code');
+const { expect } = require('@hapi/code');
 // eslint-disable-next-line
-const lab = exports.lab = require('lab').script();
+const lab = exports.lab = require('@hapi/lab').script();
 const url = require('url');
-
-const server = require('../../..');
+const server = require('../../../services/server');
 const knex = require('../../../knex');
-const clearDb = require('../../clearDb');
-
 const { getAuthToken, makeUserIdAdmin } = require('../../fixture-client');
-const { users, events } = require('../../fixtures');
+const { events, users } = require('../../fixtures');
+const prepareDb = require('../../utils/prepareDb');
 
 lab.experiment('DELETE /events/', () => {
   let Authorization;
   let myUserId;
+
+  prepareDb(lab);
 
   lab.before(async () => {
     const insertedUserIds = await knex('users').insert(users).returning(['id']);
@@ -37,10 +37,6 @@ lab.experiment('DELETE /events/', () => {
 
     const authRes = await getAuthToken(users[0]);
     Authorization = authRes.token;
-  });
-
-  lab.after(async () => {
-    await clearDb();
   });
 
   lab.test('should successfully delete an event', async () => {

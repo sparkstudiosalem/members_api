@@ -12,19 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { expect } = require('code');
+const { expect } = require('@hapi/code');
 // eslint-disable-next-line
-const lab = exports.lab = require('lab').script();
+const lab = exports.lab = require('@hapi/lab').script();
 const url = require('url');
 const knex = require('../../../knex');
-
-const server = require('../../..');
-const { destroyRecords, getAuthToken } = require('../../fixture-client');
+const server = require('../../../services/server');
+const { getAuthToken } = require('../../fixture-client');
 const { users } = require('../../fixtures');
+const prepareDb = require('../../utils/prepareDb');
 
 lab.experiment('GET /user/me', () => {
   let user;
   let Authorization;
+
+  prepareDb(lab);
 
   lab.before(async () => {
     await knex('users').insert(users);
@@ -32,10 +34,6 @@ lab.experiment('GET /user/me', () => {
 
     user = await knex('users').first('id', 'email');
     Authorization = authRes.token;
-  });
-
-  lab.after(async () => {
-    await destroyRecords({ users });
   });
 
   lab.test('should retrieve my information when logged in', async () => {

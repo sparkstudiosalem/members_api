@@ -12,6 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const Knex = require('knex');
 const knexFile = require('./knexfile');
 
-module.exports = require('knex')(knexFile);
+// const env = process.env.NODE_ENV || 'development';
+const knex = Knex(knexFile);
+// const trx = env === 'test' ? knex.transaction() : undefined;
+// if (trx) {
+//   trx.client = knex.client;
+// }
+
+// module.exports = trx || knex;
+
+module.exports = knex;

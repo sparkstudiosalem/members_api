@@ -42,6 +42,23 @@ const auth = [
       },
     },
   },
+  // {
+  //   method: 'POST',
+  //   path: '/auth/refresh',
+  //   handler: async (req, h) => {
+  //     console.log('REFRESH');
+  //   },
+  //   config: {
+  //     auth: true,
+  //     description: 'Exchange a Refresh Token for a Log In token',
+  //     tags: ['api'],
+  //     validate: {
+  //       payload: Joi.object({
+  //         refreshToken: Joi.string().required()
+  //       })
+  //     }
+  //   }
+  // },
   {
     method: 'GET',
     path: '/users/oauth_start',
@@ -118,8 +135,8 @@ const auth = [
     },
     config: {
       auth: false,
-      description: 'Log In via oauth token',
-      notes: 'Log In via oauth token.',
+      description: 'Log In via email address. This posts the email address to the app which sends an email with a sign-in link.',
+      notes: 'Log In via email address.',
       tags: ['api'],
       validate: {
         payload: Joi.object({
@@ -137,8 +154,8 @@ const auth = [
     },
     config: {
       auth: false,
-      description: 'Log In via oauth token',
-      notes: 'Log In via oauth token.',
+      description: 'Log In via email token',
+      notes: 'Log In via email token.',
       tags: ['api'],
       validate: {
         params: Joi.object({

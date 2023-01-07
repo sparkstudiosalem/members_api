@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const { fixtures: events } = require('./events');
+const { fixtures: time_token } = require('./time_token');
+const { fixtures: tokens } = require('./tokens');
+const { fixtures: users } = require('./users');
+
 module.exports = {
-  /* eslint-disable */
-  users: require('./users'),
-  events: require('./events'),
-  time_token: require('./time_token'),
-  tokens: require('./tokens'),
-  /* eslint-enable */
+  events,
+  time_token,
+  tokens,
+  users,
 };

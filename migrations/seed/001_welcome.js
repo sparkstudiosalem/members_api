@@ -52,7 +52,7 @@ exports.seed = async (knex) => {
 
   // Find the Admin user, to make sure we have the correct id
   const { id: adminUserId } = await knex('users')
-    .where('email', config.admin_email)
+    .where({ email: config.admin_email })
     .first('id');
 
   // Add the Admin user to the ADMIN group
@@ -80,6 +80,26 @@ exports.seed = async (knex) => {
           start_date: '2019-10-11 13:00:00',
           end_date: '2019-10-11 15:00:00',
           frequency: 'weekly',
+          location: 'HeatSync Labs',
+          created_by: adminUserId,
+        },
+      ]);
+  }
+
+  const admin3DPrintingClass = await knex('events')
+    .where({ created_by: adminUserId, name: '3D Printing Class' })
+    .select(['id'])
+    .first();
+
+  if (!admin3DPrintingClass) {
+    await knex('events')
+      .insert([
+        {
+          name: '3D Printing Class',
+          description: 'Join this class!\r\nLiterally the most fun you will ever have.<br/>I <i>promise</i>.',
+          start_date: '2019-10-11 13:00:00',
+          end_date: '2019-10-11 15:00:00',
+          frequency: 'biweekly',
           location: 'HeatSync Labs',
           created_by: adminUserId,
         },

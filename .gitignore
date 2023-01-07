@@ -13,4 +13,3 @@ yarn.lock
 
 # the override file contains user-defined overrides
 docker-compose.override.yml
-

@@ -12,25 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { expect } = require('code');
+const { expect } = require('@hapi/code');
 // eslint-disable-next-line
-const lab = exports.lab = require('lab').script();
+const lab = exports.lab = require('@hapi/lab').script();
 const sinon = require('sinon');
 const url = require('url');
 const { omit } = require('lodash');
-
 const bread = require('../../../lib/bread');
-const server = require('../../..');
+const server = require('../../../services/server');
 const { users } = require('../../fixtures');
-const clearDb = require('../../clearDb');
+const prepareDb = require('../../utils/prepareDb');
 
 lab.experiment('POST /user', () => {
   // eslint-disable-next-line
   let tokens = [];
 
-  lab.after(async () => {
-    await clearDb();
-  });
+  prepareDb(lab);
 
   lab.test('should create a user', async () => {
     const user = omit(users[0], ['id', 'is_validated', 'is_deleted']);

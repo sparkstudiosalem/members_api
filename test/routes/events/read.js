@@ -12,29 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { expect } = require('code');
+const { expect } = require('@hapi/code');
 // eslint-disable-next-line
 const lab = exports.lab = require('lab').script();
 const url = require('url');
-
-const server = require('../../..');
+const server = require('../../../services/server');
 const { getAuthToken } = require('../../fixture-client');
 const knex = require('../../../knex');
-const { users, events } = require('../../fixtures');
-const clearDb = require('../../clearDb');
+const { events, users } = require('../../fixtures');
+const prepareDb = require('../../utils/prepareDb');
 
 lab.experiment('GET /events/{event_id}', () => {
   let Authorization;
+
+  prepareDb(lab);
 
   lab.before(async () => {
     await knex('users').insert(users);
     await knex('events').insert(events);
     const authRes = await getAuthToken(users[0]);
     Authorization = authRes.token;
-  });
-
-  lab.after(async () => {
-    await clearDb();
   });
 
   lab.test('should return a event by id', async () => {

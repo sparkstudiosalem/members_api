@@ -1,6 +1,12 @@
 {
   // enable airbnb eslint from https://www.npmjs.com/package/eslint-config-airbnb
   "extends": "airbnb",
+  "parserOptions": {
+    "ecmaVersion": 2021
+  },
+  "plugins": [
+    "import"
+  ],
   "rules": {
     "arrow-body-style": "off",
     "camelcase": "off",
@@ -8,12 +14,15 @@
     "consistent-return": [0, { "treatUndefinedAsUnspecified": true }],
     "max-len": "off",
     "no-await-in-loop": "off",
-    "no-extraneous-dependencies": "off",
     "prefer-destructuring": [
       "error",
       { "AssignmentExpression": { "array": false } }
     ],
     "prefer-rest-params": "off",
-    "prefer-template": "off"
+    "prefer-template": "off",
+
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": ["scripts/**/*.js", "test/**/*.js", "**/*.test.js"]
+    }]
   }
 }
