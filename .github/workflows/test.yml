@@ -19,12 +19,13 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '16'
+        cache: 'npm'
     -
       name: Build docker images
       run: docker compose build
     -
       name: Install dependencies
-      uses: bahmutov/npm-install@v1
+      run: npm ci
     -
       name: Run tests
       run: NODE_ENV=test docker compose run --rm members_api

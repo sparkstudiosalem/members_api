@@ -7,6 +7,7 @@ logs
 npm-debug.log*
 migrations/.migrations
 migrations/migrations*
+/.actrc
 .vscode/
 keys.sh
 yarn.lock
