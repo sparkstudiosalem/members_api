@@ -14,7 +14,7 @@
 
 const { expect } = require('@hapi/code');
 // eslint-disable-next-line
-const lab = exports.lab = require('lab').script();
+const lab = exports.lab = require('@hapi/lab').script();
 const url = require('url');
 const server = require('../../../services/server');
 const { getAuthToken } = require('../../fixture-client');
